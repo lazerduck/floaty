@@ -1,18 +1,11 @@
 use tauri::{AppHandle, State, Manager};
+mod commands;
+mod clients;
+use commands::mpv_commands;
+
 
 mod json_store;
-mod mpv_client;
-
-use mpv_client::MpvClient;
-use std::{path::PathBuf, sync::Mutex};
-
-struct AppAudio {
-    mpv: Mutex<MpvClient>,
-}
-
-fn ipc_socket_path(app: &AppHandle) -> PathBuf {
-    app.path().app_data_dir().unwrap().join("mpv.sock")
-}
+use std::{sync::Mutex};
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]
@@ -79,55 +72,13 @@ fn delete_item(index: usize, app: AppHandle, state: State<'_, Mutex<json_store::
     }
 }
 
-#[tauri::command]
-fn mpv_play(path: String, audio: State<'_, AppAudio>) -> Result<(), String> {
-  let mut mpv = audio.mpv.lock().unwrap();
-  mpv.play(path)
-}
-
-#[tauri::command]
-fn mpv_pause(audio: State<'_, AppAudio>) -> Result<(), String> {
-  let mut mpv = audio.mpv.lock().unwrap();
-  mpv.pause()
-}
-
-#[tauri::command]
-fn mpv_resume(audio: State<'_, AppAudio>) -> Result<(), String> {
-  let mut mpv = audio.mpv.lock().unwrap();
-  mpv.resume()
-}
-
-#[tauri::command]
-fn mpv_stop(audio: State<'_, AppAudio>) -> Result<(), String> {
-  let mut mpv = audio.mpv.lock().unwrap();
-  mpv.stop()
-}
-
-#[tauri::command]
-fn mpv_set_volume(vol: f64, audio: State<'_, AppAudio>) -> Result<(), String> {
-  let mut mpv = audio.mpv.lock().unwrap();
-  mpv.set_volume(vol)
-}
-
-#[tauri::command]
-fn mpv_seek(seconds: f64, audio: State<'_, AppAudio>) -> Result<(), String> {
-  let mut mpv = audio.mpv.lock().unwrap();
-  mpv.seek(seconds)
-}
-
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .setup(|app| {
             let store = json_store::load_store(&app.handle());
-            let sock = ipc_socket_path(&app.handle());
-            if let Some(dir) = sock.parent() {
-                std::fs::create_dir_all(dir).map_err(|e| format!("mkdir app data dir: {e}"))?;
-            }
-            let client = MpvClient::new(sock);
-            app.manage(AppAudio {
-                mpv: Mutex::new(client),
-            });
+            
+            app.manage(mpv_commands::create_client(&app.handle())?);
             app.manage(Mutex::new(store));
             Ok(())
         })
@@ -138,12 +89,13 @@ pub fn run() {
             list_items, 
             add_item, 
             delete_item,
-            mpv_play,
-            mpv_pause,
-            mpv_resume,
-            mpv_stop,
-            mpv_set_volume,
-            mpv_seek,])
+            mpv_commands::mpv_play,
+            mpv_commands::mpv_pause,
+            mpv_commands::mpv_resume,
+            mpv_commands::mpv_stop,
+            mpv_commands::mpv_set_volume,
+            mpv_commands::mpv_seek
+            ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

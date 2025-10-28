@@ -25,17 +25,30 @@ impl MpvClient {
     }
 
     pub fn ensure_running(&mut self) -> Result<(), String> {
+        println!("Ensuring mpv is running with socket at {}", self.socket_path.display());
+        #[cfg(unix)]
         if self.socket_path.exists() {
-            return Ok(());
+            match std::os::unix::net::UnixStream::connect(&self.socket_path) {
+                Ok(_) => {
+                    println!("mpv socket exists and is connectable");
+                    return Ok(());
+                },
+                Err(e) => {
+                    println!("mpv socket exists but not connectable: {}", e);
+                    // Remove stale socket and respawn
+                    let _ = fs::remove_file(&self.socket_path);
+                }
+            }
         }
 
+        println!("Stopping existing mpv instance...");
         if let Some(mut c) = self.child.take() {
             let _ = c.kill();
             let _ = c.wait();
         }
 
         let _ = fs::remove_file(&self.socket_path);
-
+        println!("Starting mpv...");
         let mpv = Command::new("mpv")
             .arg("--no-video")
             .arg("--idle=yes")
@@ -49,19 +62,44 @@ impl MpvClient {
             .map_err(|e| format!("Failed to spawn mpv: {e}"))?;
 
         self.child = Some(mpv);
-
-        for _ in 0..20 {
-            if self.socket_path.exists() {
-                return Ok(());
+        println!("Waiting for mpv IPC socket to become connectable...");
+        #[cfg(unix)]
+        {
+            for _ in 0..40 {
+                if self.socket_path.exists() {
+                    match std::os::unix::net::UnixStream::connect(&self.socket_path) {
+                        Ok(_) => {
+                            println!("mpv socket became connectable");
+                            return Ok(());
+                        },
+                        Err(_) => {}
+                    }
+                }
+                thread::sleep(Duration::from_millis(50));
             }
-            thread::sleep(Duration::from_millis(50));
+            println!("mpv IPC socket did not become connectable: {}", self.socket_path.display());
+            return Err("mpv IPC socket did not become connectable in time".into());
         }
-        Err("mpv IPC socket did not appear in time".into())
+
+        #[cfg(not(unix))]
+        {
+            for _ in 0..40 {
+                if self.socket_path.exists() {
+                    return Ok(());
+                }
+                thread::sleep(Duration::from_millis(50));
+            }
+            println!("mpv IPC socket did not appear: {}", self.socket_path.display());
+            Err("mpv IPC socket did not appear in time".into())
+        }
     }
 
     fn send_cmd(&mut self, payload: Value) -> Result<Value, String> {
-        self.ensure_running()?;
-
+        let t = self.ensure_running();
+        if let Err(e) = t {
+            println!("Failed to ensure mpv is running: {e}");
+            return Err(e);
+        }
         #[cfg(unix)]
         {
             let mut stream = UnixStream::connect(&self.socket_path)
