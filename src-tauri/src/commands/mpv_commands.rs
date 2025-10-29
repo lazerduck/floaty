@@ -4,12 +4,13 @@ use tauri::{AppHandle, Manager, State};
 use crate::clients::mpv_client;
 
 pub struct AppAudio {
-    mpv: Mutex<mpv_client::MpvClient>,
+    pub mpv: Mutex<mpv_client::MpvClient>,
 }
 
 #[tauri::command]
 pub fn mpv_play(path: String, audio: State<'_, AppAudio>) -> Result<(), String> {
     let mut mpv = audio.mpv.lock().unwrap();
+    println!("Playing audio file: {}", path);
     mpv.play(path)
 }
 

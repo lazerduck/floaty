@@ -147,6 +147,7 @@ impl MpvClient {
         let p = file.as_ref().to_string_lossy().to_string();
         let payload = json!({ "command": ["loadfile", p, "replace"] });
         let _ = self.send_cmd(payload)?;
+        let _ = self.resume()?;
         Ok(())
     }
 
@@ -175,14 +176,21 @@ impl MpvClient {
         let _ = self.send_cmd(json!({ "command": ["seek", seconds, "relative"] }))?;
         Ok(())
     }
-}
 
-impl Drop for MpvClient {
-    fn drop(&mut self) {
+    pub fn shutdown(&mut self) -> Result<(), String> {
+        println!("Shutting down mpv...");
         if let Some(mut c) = self.child.take() {
             let _ = c.kill();
             let _ = c.wait();
         }
         let _ = fs::remove_file(&self.socket_path);
+        Ok(())
+    }
+}
+
+
+impl Drop for MpvClient {
+    fn drop(&mut self) {
+        let _ = self.shutdown();
     }
 }

@@ -84,10 +84,26 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_fs::init())
         .setup(|app| {
-            let store = json_store::load_store(&app.handle());
+            let app_handle = app.handle();
+
+            let store = json_store::load_store(&app_handle);
 
             app.manage(mpv_commands::create_client(&app.handle())?);
             app.manage(Mutex::new(store));
+            
+            let main = app
+                .get_webview_window("main")
+                .expect("main window not found");
+
+            let app_handle = app.handle().clone();
+            main.on_window_event(move |_| {
+                if let Some(state) = app_handle.try_state::<mpv_commands::AppAudio>() {
+                    if let Ok(mut client) = state.mpv.lock() {
+                        let _ = client.shutdown(); // send quit to mpv, best-effort
+                    }
+                }
+            });
+
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())

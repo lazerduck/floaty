@@ -10,7 +10,8 @@ export const useMusicStore = defineStore('music', {
     rootDir: '/mnt/nas/Music',
     currentFolderPath: '',
     trackList: [] as string[],
-    currentDirectoryContents: [] as string[],
+    // store name + isDir so UI can distinguish folders from files
+    currentDirectoryContents: [] as { name: string; isDir: boolean }[],
     currentTrack: '',
     isPlaying: false,
     isPaused: false,
@@ -68,11 +69,33 @@ export const useMusicStore = defineStore('music', {
           console.error('Error stopping track:', error);
         });
     },
+    async prevTrack() {
+      const files = this.currentDirectoryContents.filter(f => !f.isDir).map(f => f.name);
+      if (files.length === 0) return;
+      let idx = files.indexOf(this.currentTrack);
+      if (idx === -1) idx = 0;
+      const newIdx = idx > 0 ? idx - 1 : files.length - 1;
+      this.currentTrack = files[newIdx];
+      await this.play();
+    },
+    async nextTrack() {
+      const files = this.currentDirectoryContents.filter(f => !f.isDir).map(f => f.name);
+      if (files.length === 0) return;
+      let idx = files.indexOf(this.currentTrack);
+      // if not found, start from before first so next moves to 0
+      if (idx === -1) idx = -1;
+      const newIdx = (idx + 1) % files.length;
+      this.currentTrack = files[newIdx];
+      await this.play();
+    },
     async getFolderContents(folderPath: string) {
       const fullPath = await path.join(this.rootDir, folderPath);
       readDir(fullPath)
         .then((entries) => {
-          this.currentDirectoryContents = entries.map(entry => entry.name);
+          this.currentDirectoryContents = entries.map(entry => ({
+            name: entry.name ?? '',
+            isDir: entry.isDirectory
+          }));
         })
         .catch((error) => {
           console.error('Error reading directory:', error);
