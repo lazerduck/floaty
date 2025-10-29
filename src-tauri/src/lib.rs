@@ -1,11 +1,10 @@
-use tauri::{AppHandle, State, Manager};
-mod commands;
+use tauri::{AppHandle, Manager, State};
 mod clients;
+mod commands;
 use commands::mpv_commands;
 
-
 mod json_store;
-use std::{sync::Mutex};
+use std::sync::Mutex;
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]
@@ -50,18 +49,26 @@ fn list_items(state: State<'_, Mutex<json_store::Store>>) -> Vec<String> {
 }
 
 #[tauri::command]
-fn add_item(value: String, app: AppHandle, state: State<'_, Mutex<json_store::Store>>) -> Result<Vec<String>, String> {
-  let mut s = match state.lock() {
-      Ok(s) => s,
-      Err(_) => return Err("Failed to lock state".into()),
-  };
-  s.items.push(value);
-  json_store::save_store(&app, &s)?;
-  Ok(s.items.clone())
+fn add_item(
+    value: String,
+    app: AppHandle,
+    state: State<'_, Mutex<json_store::Store>>,
+) -> Result<Vec<String>, String> {
+    let mut s = match state.lock() {
+        Ok(s) => s,
+        Err(_) => return Err("Failed to lock state".into()),
+    };
+    s.items.push(value);
+    json_store::save_store(&app, &s)?;
+    Ok(s.items.clone())
 }
 
 #[tauri::command]
-fn delete_item(index: usize, app: AppHandle, state: State<'_, Mutex<json_store::Store>>) -> Result<Vec<String>, String> {
+fn delete_item(
+    index: usize,
+    app: AppHandle,
+    state: State<'_, Mutex<json_store::Store>>,
+) -> Result<Vec<String>, String> {
     let mut s = state.lock().unwrap();
     if index < s.items.len() {
         s.items.remove(index);
@@ -75,19 +82,20 @@ fn delete_item(index: usize, app: AppHandle, state: State<'_, Mutex<json_store::
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init())
         .setup(|app| {
             let store = json_store::load_store(&app.handle());
-            
+
             app.manage(mpv_commands::create_client(&app.handle())?);
             app.manage(Mutex::new(store));
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![
-            greet, 
-            run_neofetch, 
-            list_items, 
-            add_item, 
+            greet,
+            run_neofetch,
+            list_items,
+            add_item,
             delete_item,
             mpv_commands::mpv_play,
             mpv_commands::mpv_pause,
@@ -95,8 +103,7 @@ pub fn run() {
             mpv_commands::mpv_stop,
             mpv_commands::mpv_set_volume,
             mpv_commands::mpv_seek
-            ])
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
-

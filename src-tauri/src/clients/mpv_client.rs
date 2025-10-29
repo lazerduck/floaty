@@ -25,14 +25,17 @@ impl MpvClient {
     }
 
     pub fn ensure_running(&mut self) -> Result<(), String> {
-        println!("Ensuring mpv is running with socket at {}", self.socket_path.display());
+        println!(
+            "Ensuring mpv is running with socket at {}",
+            self.socket_path.display()
+        );
         #[cfg(unix)]
         if self.socket_path.exists() {
             match std::os::unix::net::UnixStream::connect(&self.socket_path) {
                 Ok(_) => {
                     println!("mpv socket exists and is connectable");
                     return Ok(());
-                },
+                }
                 Err(e) => {
                     println!("mpv socket exists but not connectable: {}", e);
                     // Remove stale socket and respawn
@@ -71,13 +74,16 @@ impl MpvClient {
                         Ok(_) => {
                             println!("mpv socket became connectable");
                             return Ok(());
-                        },
+                        }
                         Err(_) => {}
                     }
                 }
                 thread::sleep(Duration::from_millis(50));
             }
-            println!("mpv IPC socket did not become connectable: {}", self.socket_path.display());
+            println!(
+                "mpv IPC socket did not become connectable: {}",
+                self.socket_path.display()
+            );
             return Err("mpv IPC socket did not become connectable in time".into());
         }
 
@@ -89,7 +95,10 @@ impl MpvClient {
                 }
                 thread::sleep(Duration::from_millis(50));
             }
-            println!("mpv IPC socket did not appear: {}", self.socket_path.display());
+            println!(
+                "mpv IPC socket did not appear: {}",
+                self.socket_path.display()
+            );
             Err("mpv IPC socket did not appear in time".into())
         }
     }
@@ -104,7 +113,7 @@ impl MpvClient {
         {
             let mut stream = UnixStream::connect(&self.socket_path)
                 .map_err(|e| format!("mpv connect failed: {e}"))?;
-            
+
             let mut data = serde_json::to_vec(&payload).map_err(|e| e.to_string())?;
             data.push(b'\n');
             stream.write_all(&data).map_err(|e| e.to_string())?;
@@ -112,8 +121,12 @@ impl MpvClient {
             let mut buf = Vec::with_capacity(1024);
             let mut byte = [0u8; 1];
             while let Ok(n) = stream.read(&mut byte) {
-                if n == 0 { break; }
-                if byte[0] == b'\n' { break; }
+                if n == 0 {
+                    break;
+                }
+                if byte[0] == b'\n' {
+                    break;
+                }
                 buf.push(byte[0]);
             }
 

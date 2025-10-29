@@ -1,16 +1,229 @@
-   0.139790258s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty_lib"}: cargo::core::compiler::fingerprint: stale: changed "/home/adam/projects/floaty/src-tauri/src/lib.rs"
-   0.139818951s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty_lib"}: cargo::core::compiler::fingerprint:           (vs) "/home/adam/projects/floaty/src-tauri/target/debug/.fingerprint/floaty-5c2b9e143382d2aa/dep-lib-floaty_lib"
-   0.139821646s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty_lib"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 1761693861, nanos: 90526788 } < FileTime { seconds: 1761694065, nanos: 68925103 }
-   0.140185062s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty_lib"}: cargo::core::compiler::fingerprint: fingerprint dirty for floaty v0.1.0 (/home/adam/projects/floaty/src-tauri)/Check { test: false }/TargetInner { ..: lib_target("floaty_lib", ["staticlib", "cdylib", "rlib"], "/home/adam/projects/floaty/src-tauri/src/lib.rs", Edition2021) }
-   0.140207213s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty_lib"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "/home/adam/projects/floaty/src-tauri/target/debug/.fingerprint/floaty-5c2b9e143382d2aa/dep-lib-floaty_lib", reference_mtime: FileTime { seconds: 1761693861, nanos: 90526788 }, stale: "/home/adam/projects/floaty/src-tauri/src/lib.rs", stale_mtime: FileTime { seconds: 1761694065, nanos: 68925103 } }))
-   0.149158190s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty_lib"}: cargo::core::compiler::fingerprint: stale: changed "/home/adam/projects/floaty/src-tauri/src/commands/mpv_commands.rs"
-   0.149167998s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty_lib"}: cargo::core::compiler::fingerprint:           (vs) "/home/adam/projects/floaty/src-tauri/target/debug/.fingerprint/floaty-a0ad98d43e9cfd64/dep-test-lib-floaty_lib"
-   0.149171595s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty_lib"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 1761693861, nanos: 90526788 } < FileTime { seconds: 1761693984, nanos: 346303572 }
-   0.149232167s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty_lib"}: cargo::core::compiler::fingerprint: fingerprint dirty for floaty v0.1.0 (/home/adam/projects/floaty/src-tauri)/Check { test: true }/TargetInner { ..: lib_target("floaty_lib", ["staticlib", "cdylib", "rlib"], "/home/adam/projects/floaty/src-tauri/src/lib.rs", Edition2021) }
-   0.149245953s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty_lib"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "/home/adam/projects/floaty/src-tauri/target/debug/.fingerprint/floaty-a0ad98d43e9cfd64/dep-test-lib-floaty_lib", reference_mtime: FileTime { seconds: 1761693861, nanos: 90526788 }, stale: "/home/adam/projects/floaty/src-tauri/src/commands/mpv_commands.rs", stale_mtime: FileTime { seconds: 1761693984, nanos: 346303572 } }))
-   0.150161777s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty"}: cargo::core::compiler::fingerprint: fingerprint dirty for floaty v0.1.0 (/home/adam/projects/floaty/src-tauri)/Check { test: false }/TargetInner { name: "floaty", doc: true, ..: with_path("/home/adam/projects/floaty/src-tauri/src/main.rs", Edition2021) }
-   0.150168941s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDepFingerprint { name: "floaty_lib" })
-   0.150825973s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty"}: cargo::core::compiler::fingerprint: fingerprint dirty for floaty v0.1.0 (/home/adam/projects/floaty/src-tauri)/Check { test: true }/TargetInner { name: "floaty", doc: true, ..: with_path("/home/adam/projects/floaty/src-tauri/src/main.rs", Edition2021) }
-   0.150832245s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDepFingerprint { name: "floaty_lib" })
+   0.132019213s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty_lib"}: cargo::core::compiler::fingerprint: fingerprint error for floaty v0.1.0 (/home/adam/projects/floaty/src-tauri)/Check { test: false }/TargetInner { ..: lib_target("floaty_lib", ["staticlib", "cdylib", "rlib"], "/home/adam/projects/floaty/src-tauri/src/lib.rs", Edition2021) }
+   0.132077663s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty_lib"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/adam/projects/floaty/src-tauri/target/debug/.fingerprint/floaty-6ad74dead0121212/lib-floaty_lib`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: cargo_util::paths::read_bytes
+   1: cargo_util::paths::read
+   2: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   3: cargo::core::compiler::fingerprint::prepare_target
+   4: cargo::core::compiler::compile
+   5: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   6: cargo::ops::cargo_compile::compile_ws
+   7: cargo::ops::cargo_compile::compile_with_exec
+   8: cargo::ops::cargo_compile::compile
+   9: cargo::commands::check::exec
+  10: <cargo::cli::Exec>::exec
+  11: cargo::main
+  12: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  13: std::rt::lang_start::<()>::{closure#0}
+  14: core::ops::function::impls::<impl core::ops::function::FnOnce<A> for &F>::call_once
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/core/src/ops/function.rs:290:21
+  15: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  16: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  17: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  18: std::rt::lang_start_internal::{{closure}}
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:175:24
+  19: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  20: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  21: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  22: std::rt::lang_start_internal
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:171:5
+  23: main
+  24: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  25: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  26: <unknown>
+   0.202287300s  INFO prepare_target{force=false package_id=tauri-plugin-fs v2.4.4 target="tauri_plugin_fs"}: cargo::core::compiler::fingerprint: fingerprint error for tauri-plugin-fs v2.4.4/Check { test: false }/TargetInner { ..: lib_target("tauri_plugin_fs", ["lib"], "/home/adam/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-plugin-fs-2.4.4/src/lib.rs", Edition2021) }
+   0.202308009s  INFO prepare_target{force=false package_id=tauri-plugin-fs v2.4.4 target="tauri_plugin_fs"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/adam/projects/floaty/src-tauri/target/debug/.fingerprint/tauri-plugin-fs-21cca6be70368d23/lib-tauri_plugin_fs`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: cargo_util::paths::read_bytes
+   1: cargo_util::paths::read
+   2: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   3: cargo::core::compiler::fingerprint::prepare_target
+   4: cargo::core::compiler::compile
+   5: cargo::core::compiler::compile
+   6: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   7: cargo::ops::cargo_compile::compile_ws
+   8: cargo::ops::cargo_compile::compile_with_exec
+   9: cargo::ops::cargo_compile::compile
+  10: cargo::commands::check::exec
+  11: <cargo::cli::Exec>::exec
+  12: cargo::main
+  13: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  14: std::rt::lang_start::<()>::{closure#0}
+  15: core::ops::function::impls::<impl core::ops::function::FnOnce<A> for &F>::call_once
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/core/src/ops/function.rs:290:21
+  16: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  17: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  18: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  19: std::rt::lang_start_internal::{{closure}}
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:175:24
+  20: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  21: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  22: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  23: std::rt::lang_start_internal
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:171:5
+  24: main
+  25: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  26: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  27: <unknown>
+   0.205967849s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty_lib"}: cargo::core::compiler::fingerprint: fingerprint error for floaty v0.1.0 (/home/adam/projects/floaty/src-tauri)/Check { test: true }/TargetInner { ..: lib_target("floaty_lib", ["staticlib", "cdylib", "rlib"], "/home/adam/projects/floaty/src-tauri/src/lib.rs", Edition2021) }
+   0.206025367s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty_lib"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/adam/projects/floaty/src-tauri/target/debug/.fingerprint/floaty-09042f5b0c7d41f0/test-lib-floaty_lib`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: cargo_util::paths::read_bytes
+   1: cargo_util::paths::read
+   2: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   3: cargo::core::compiler::fingerprint::prepare_target
+   4: cargo::core::compiler::compile
+   5: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   6: cargo::ops::cargo_compile::compile_ws
+   7: cargo::ops::cargo_compile::compile_with_exec
+   8: cargo::ops::cargo_compile::compile
+   9: cargo::commands::check::exec
+  10: <cargo::cli::Exec>::exec
+  11: cargo::main
+  12: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  13: std::rt::lang_start::<()>::{closure#0}
+  14: core::ops::function::impls::<impl core::ops::function::FnOnce<A> for &F>::call_once
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/core/src/ops/function.rs:290:21
+  15: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  16: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  17: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  18: std::rt::lang_start_internal::{{closure}}
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:175:24
+  19: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  20: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  21: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  22: std::rt::lang_start_internal
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:171:5
+  23: main
+  24: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  25: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  26: <unknown>
+   0.209429086s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty"}: cargo::core::compiler::fingerprint: fingerprint error for floaty v0.1.0 (/home/adam/projects/floaty/src-tauri)/Check { test: false }/TargetInner { name: "floaty", doc: true, ..: with_path("/home/adam/projects/floaty/src-tauri/src/main.rs", Edition2021) }
+   0.209447681s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/adam/projects/floaty/src-tauri/target/debug/.fingerprint/floaty-f82b0b3e4ba212f6/bin-floaty`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: cargo_util::paths::read_bytes
+   1: cargo_util::paths::read
+   2: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   3: cargo::core::compiler::fingerprint::prepare_target
+   4: cargo::core::compiler::compile
+   5: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   6: cargo::ops::cargo_compile::compile_ws
+   7: cargo::ops::cargo_compile::compile_with_exec
+   8: cargo::ops::cargo_compile::compile
+   9: cargo::commands::check::exec
+  10: <cargo::cli::Exec>::exec
+  11: cargo::main
+  12: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  13: std::rt::lang_start::<()>::{closure#0}
+  14: core::ops::function::impls::<impl core::ops::function::FnOnce<A> for &F>::call_once
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/core/src/ops/function.rs:290:21
+  15: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  16: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  17: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  18: std::rt::lang_start_internal::{{closure}}
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:175:24
+  19: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  20: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  21: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  22: std::rt::lang_start_internal
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:171:5
+  23: main
+  24: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  25: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  26: <unknown>
+   0.211635945s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty"}: cargo::core::compiler::fingerprint: fingerprint error for floaty v0.1.0 (/home/adam/projects/floaty/src-tauri)/Check { test: true }/TargetInner { name: "floaty", doc: true, ..: with_path("/home/adam/projects/floaty/src-tauri/src/main.rs", Edition2021) }
+   0.211661082s  INFO prepare_target{force=false package_id=floaty v0.1.0 (/home/adam/projects/floaty/src-tauri) target="floaty"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/adam/projects/floaty/src-tauri/target/debug/.fingerprint/floaty-90427ac6668a02c9/test-bin-floaty`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: cargo_util::paths::read_bytes
+   1: cargo_util::paths::read
+   2: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   3: cargo::core::compiler::fingerprint::prepare_target
+   4: cargo::core::compiler::compile
+   5: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   6: cargo::ops::cargo_compile::compile_ws
+   7: cargo::ops::cargo_compile::compile_with_exec
+   8: cargo::ops::cargo_compile::compile
+   9: cargo::commands::check::exec
+  10: <cargo::cli::Exec>::exec
+  11: cargo::main
+  12: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  13: std::rt::lang_start::<()>::{closure#0}
+  14: core::ops::function::impls::<impl core::ops::function::FnOnce<A> for &F>::call_once
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/core/src/ops/function.rs:290:21
+  15: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  16: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  17: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  18: std::rt::lang_start_internal::{{closure}}
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:175:24
+  19: std::panicking::catch_unwind::do_call
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:589:40
+  20: std::panicking::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panicking.rs:552:19
+  21: std::panic::catch_unwind
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/panic.rs:359:14
+  22: std::rt::lang_start_internal
+             at /rustc/1159e78c4747b02ef996e55082b704c09b970588/library/std/src/rt.rs:171:5
+  23: main
+  24: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+  25: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  26: <unknown>
+    Checking tauri-plugin-fs v2.4.4
     Checking floaty v0.1.0 (/home/adam/projects/floaty/src-tauri)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.67s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.82s
